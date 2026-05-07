@@ -1,41 +1,46 @@
 pipeline {
     agent none
     environment {
-        TEXT = 'example'
+        TEXT='Jorge y Ruth'
     }
+
     stages {
-        stage('Parallel Stages') {
+        stage('Paralelismo en multiples nodos') {
             parallel {
-                stage('Uppercase on Development') {
+                stage('Aplicando funcion Uppercase de C') {
                     agent {
-                        label 'Development'
+                        label 'production-c'
                     }
+
                     steps {
-                            sh 'gcc -o uppercase uppercase.c'
-                            sh "./uppercase ${TEXT}"
-                        }
-                }
-                stage('Reverse on Development2') {
-                    agent {
-                        label 'Development2'
+                        sh 'gcc -o uppercase uppercase.c'
+                        sh "./uppercase ${TEXT}"
                     }
-                    steps {              
-                            sh 'gcc -o reverse reverse.c'
-                            sh "./reverse ${TEXT}"
-                        }
+                }
+
+                stage('Aplicando funcion Reverse de C') {
+                    agent {
+                        label 'production-c'
+                    }
+
+                    steps {
+                        sh 'gcc -o reverse reverse.c'
+                        sh "./reverse ${TEXT}"
+                    }
                 }
             }
         }
     }
+
     post {
         always {
-            echo 'This will always run'
+            echo 'Pipeline terminado...'
         }
         success {
-            echo 'This will run only if the pipeline succeeds'
+            echo 'completado con exito.'
         }
         failure {
-            echo 'This will run only if the pipeline fails'
+            echo 'completado con errores.'
         }
     }
 }
