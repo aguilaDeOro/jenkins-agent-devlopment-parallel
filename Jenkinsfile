@@ -9,7 +9,7 @@ pipeline {
             parallel {
                 stage('Aplicando funcion Uppercase de C') {
                     agent {
-                        label 'production-c'
+                        label 'dev && java'
                     }
 
                     steps {
@@ -20,7 +20,7 @@ pipeline {
 
                 stage('Aplicando funcion Reverse de C') {
                     agent {
-                        label 'production-c'
+                        label 'tests && java'
                     }
 
                     steps {
