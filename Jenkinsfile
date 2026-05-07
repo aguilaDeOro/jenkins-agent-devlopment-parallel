@@ -1,7 +1,7 @@
 pipeline {
     agent none
     environment {
-        TEXT='Jorge y Ruth'
+        TEXT='jRuth'
     }
 
     stages {
